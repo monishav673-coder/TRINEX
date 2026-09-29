@@ -1,0 +1,243 @@
+import React, { createContext, useContext, useState, useEffect } from 'react';
+
+export const translations = {
+  en: {
+    dashboard: 'Dashboard',
+    scholarships: 'Scholarships',
+    eligibility: 'Eligibility Checker',
+    applications: 'Applications',
+    digivault: 'DigiVault',
+    vericore: 'VeriCore',
+    fundtrack: 'FundTrack',
+    notifications: 'Notifications',
+    jago: 'JAGO AI',
+    profile: 'Profile',
+    help: 'Help & Support',
+    manualReview: 'Manual Review',
+    beneficiaryInsight: 'Beneficiary Insight',
+    reports: 'Reports & Logs',
+    searchPlaceholder: 'Search scholarships, application ID, guidelines...',
+    getStarted: 'Get Started',
+    exploreScholarships: 'Explore Scholarships',
+    studentLogin: 'Student Login',
+    officerLogin: 'Officer Login',
+    logout: 'Logout',
+    tagline: 'One Platform. Every Scholarship. Smarter Access.',
+    demoNotice: 'Prototype / Demo Environment',
+    potentiallyEligible: 'Potentially Eligible',
+    underReview: 'Under Review',
+    verified: 'Verified',
+    sanctioned: 'Sanctioned',
+    disbursed: 'Disbursed',
+    welcomeBack: 'Good morning',
+    profileCompletion: 'Profile Completion',
+    viewApplication: 'View Application',
+    checkEligibility: 'Check Eligibility',
+    startApplication: 'Start Application'
+  },
+  ta: {
+    dashboard: 'முகப்பு பலகை',
+    scholarships: 'கல்வி உதவித்தொகைகள்',
+    eligibility: 'தகுதி சரிபார்ப்பான்',
+    applications: 'விண்ணப்பங்கள்',
+    digivault: 'டிஜிவால்ட் ஆவணப் பெட்டகம்',
+    vericore: 'வெரிகோர் சரிபார்ப்பு மையம்',
+    fundtrack: 'பணப்பரிமாற்ற கண்காணிப்பு',
+    notifications: 'அறிவிப்புகள்',
+    jago: 'ஜாகோ AI உதவியாளர்',
+    profile: 'சுயவிவரம்',
+    help: 'உதவி & ஆதரவு',
+    manualReview: 'நேரடி ஆய்வு வரிசை',
+    beneficiaryInsight: 'பயனாளி நுண்ணறிவு',
+    reports: 'அறிக்கைகள் & பதிவுகள்',
+    searchPlaceholder: 'உதவித்தொகை, விண்ணப்ப எண் தேடுக...',
+    getStarted: 'தொடங்குங்கள்',
+    exploreScholarships: 'உதவித்தொகைகளை ஆராயுங்கள்',
+    studentLogin: 'மாணவர் உள்நுழைவு',
+    officerLogin: 'அதிகாரி உள்நுழைவு',
+    logout: 'வெளியேறு',
+    tagline: 'ஒரே தளம். அனைத்து உதவித்தொகைகளும். சிறந்த அணுகல்.',
+    demoNotice: 'மாதிரி / சோதனை சூழல்',
+    potentiallyEligible: 'சாத்தியமான தகுதி உடையவர்',
+    underReview: 'ஆய்வில் உள்ளது',
+    verified: 'சரிபார்க்கப்பட்டது',
+    sanctioned: 'ஒப்புதல் அளிக்கப்பட்டது',
+    disbursed: 'வழங்கப்பட்டது',
+    welcomeBack: 'காலை வணக்கம்',
+    profileCompletion: 'சுயவிவர நிறைவு',
+    viewApplication: 'விண்ணப்பத்தைக் காண்க',
+    checkEligibility: 'தகுதியைச் சரிபார்க்கவும்',
+    startApplication: 'விண்ணப்பிக்கத் தொடங்குங்கள்'
+  },
+  hi: {
+    dashboard: 'डैशबोर्ड',
+    scholarships: 'छात्रवृत्तियां',
+    eligibility: 'पात्रता जांचकर्ता',
+    applications: 'आवेदन',
+    digivault: 'डिजीवाल्ट दस्तावेज़',
+    vericore: 'वेरीकोर सत्यापन केंद्र',
+    fundtrack: 'फंडट्रैक भुगतान ट्रैकिंग',
+    notifications: 'सूचनाएं',
+    jago: 'जागो AI सहायक',
+    profile: 'प्रोफाइल',
+    help: 'सहायता एवं समर्थन',
+    manualReview: 'मैनुअल समीक्षा',
+    beneficiaryInsight: 'लाभार्थी अंतर्दृष्टि',
+    reports: 'रिपोर्ट एवं लॉग',
+    searchPlaceholder: 'छात्रवृत्ति, आवेदन संख्या खोजें...',
+    getStarted: 'शुरू करें',
+    exploreScholarships: 'छात्रवृत्तियां देखें',
+    studentLogin: 'छात्र लॉगिन',
+    officerLogin: 'अधिकारी लॉगिन',
+    logout: 'लॉगआउट',
+    tagline: 'एक मंच। हर छात्रवृत्ति। अधिक सुगम पहुंच।',
+    demoNotice: 'प्रोटोटाइप / डेमो वातावरण',
+    potentiallyEligible: 'संभावित रूप से पात्र',
+    underReview: 'समीक्षाधीन',
+    verified: 'सत्यापित',
+    sanctioned: 'स्वीकृत',
+    disbursed: 'वितरित',
+    welcomeBack: 'सुप्रभात',
+    profileCompletion: 'प्रोफ़ाइल पूर्णता',
+    viewApplication: 'आवेदन देखें',
+    checkEligibility: 'पात्रता जांचें',
+    startApplication: 'आवेदन शुरू करें'
+  },
+  te: {
+    dashboard: 'డ్యాష్‌బోర్డ్',
+    scholarships: 'స్కాలర్‌షిప్‌లు',
+    eligibility: 'అర్హత తనిఖీ',
+    applications: 'దరఖాస్తులు',
+    digivault: 'డిజివాల్ట్ పత్రాలు',
+    vericore: 'వెరికోర్ ధృవీకరణ',
+    fundtrack: 'ఫండ్‌ట్రాక్ చెల్లింపులు',
+    notifications: 'నోటిఫికేషన్లు',
+    jago: 'జాగో AI',
+    profile: 'ప్రొఫైల్',
+    help: 'సహాయం',
+    manualReview: 'మాన్యువల్ సమీక్ష',
+    beneficiaryInsight: 'లబ్ధిదారుల అంతర్దృష్టి',
+    reports: 'నివేదికలు',
+    searchPlaceholder: 'స్కాలర్‌షిప్‌లు, దరఖాస్తు ఐడీని శోధించండి...',
+    getStarted: 'ప్రారంభించండి',
+    exploreScholarships: 'స్కాలర్‌షిప్‌లను అన్వేషించండి',
+    studentLogin: 'విద్యార్థి లాగిన్',
+    officerLogin: 'అధికారి లాగిన్',
+    logout: 'లాగౌట్',
+    tagline: 'ఒకే వేదిక. ప్రతి స్కాలర్‌షిప్. తెలివైన యాక్సెస్.',
+    demoNotice: 'డెమో / నమూనా వాతావరణం',
+    potentiallyEligible: 'సంభావ్యంగా అర్హులు',
+    underReview: 'సమీక్షలో ఉంది',
+    verified: 'ధృవీకరించబడింది',
+    sanctioned: 'మంజూరైంది',
+    disbursed: 'పంపిణీ చేయబడింది',
+    welcomeBack: 'శుభోదయం',
+    profileCompletion: 'ప్రొఫైల్ పూర్తి',
+    viewApplication: 'దరఖాస్తును వీక్షించండి',
+    checkEligibility: 'అర్హతను తనిఖీ చేయండి',
+    startApplication: 'దరఖాస్తు ప్రారంభించండి'
+  },
+  kn: {
+    dashboard: 'ಡ್ಯಾಶ್‌ಬೋರ್ಡ್',
+    scholarships: 'ವಿದ್ಯಾರ್ಥಿವೇತನಗಳು',
+    eligibility: 'ಅರ್ಹತಾ ಪರಿಶೀಲಕ',
+    applications: 'ಅರ್ಜಿಗಳು',
+    digivault: 'ಡಿಜಿವಾಲ್ಟ್ ದಾಖಲೆಗಳು',
+    vericore: 'ವೆರಿಕೋರ್ ಪರಿಶೀಲನೆ',
+    fundtrack: 'ಫಂಡ್‌ಟ್ರಾಕ್ ಪಾವತಿ',
+    notifications: 'ಅಧಿಸೂಚನೆಗಳು',
+    jago: 'ಜಾಗೋ AI',
+    profile: 'ಪ್ರೊಫೈಲ್',
+    help: 'ಸಹಾಯ',
+    manualReview: 'ಹಸ್ತಚಾಲಿತ ಪರಿಶೀಲನೆ',
+    beneficiaryInsight: 'ಫಲಾನುಭವಿ ಒಳನೋಟ',
+    reports: 'ವರದಿಗಳು',
+    searchPlaceholder: 'ವಿದ್ಯಾರ್ಥಿವೇತನ ಹುಡುಕಿ...',
+    getStarted: 'ಪ್ರಾರಂಭಿಸಿ',
+    exploreScholarships: 'ವಿದ್ಯಾರ್ಥಿವೇತನಗಳನ್ನು ಅನ್ವೇಷಿಸಿ',
+    studentLogin: 'ವಿದ್ಯಾರ್ಥಿ ಲಾಗಿನ್',
+    officerLogin: 'ಅಧಿಕಾರಿ ಲಾಗಿನ್',
+    logout: 'ಲಾಗ್‌ಔಟ್',
+    tagline: 'ಒಂದೇ ವೇದಿಕೆ. ಪ್ರತಿಯೊಂದು ವಿದ್ಯಾರ್ಥಿವೇತನ. ಉತ್ತಮ ಪ್ರವೇಶ.',
+    demoNotice: 'ಮಾದರಿ / ಡೆಮೊ ಪರಿಸರ',
+    potentiallyEligible: 'ಸಂಭಾವ್ಯ ಅರ್ಹರು',
+    underReview: 'ಪರಿಶೀಲನೆಯಲ್ಲಿದೆ',
+    verified: 'ಪರಿಶೀಲಿಸಲಾಗಿದೆ',
+    sanctioned: 'ಮಂಜೂರಾಗಿದೆ',
+    disbursed: 'ವಿತರಿಸಲಾಗಿದೆ',
+    welcomeBack: 'ಶುಭೋದಯ',
+    profileCompletion: 'ಪ್ರೊಫೈಲ್ ಪೂರ್ಣತೆ',
+    viewApplication: 'ಅರ್ಜಿ ವೀಕ್ಷಿಸಿ',
+    checkEligibility: 'ಅರ್ಹತೆ ಪರಿಶೀಲಿಸಿ',
+    startApplication: 'ಅರ್ಜಿ ಪ್ರಾರಂಭಿಸಿ'
+  },
+  ml: {
+    dashboard: 'ഡാഷ്‌ബോർഡ്',
+    scholarships: 'സ്കോളർഷിപ്പുകൾ',
+    eligibility: 'യോഗ്യതാ പരിശോധന',
+    applications: 'അപേക്ഷകൾ',
+    digivault: 'ഡിജിവാൾട്ട് രേഖകൾ',
+    vericore: 'വെരികോർ പരിശോധന',
+    fundtrack: 'ഫണ്ട് ട്രാക്ക്',
+    notifications: 'അറിയിപ്പുകൾ',
+    jago: 'ജാഗോ AI',
+    profile: 'പ്രൊഫൈൽ',
+    help: 'സഹായം',
+    manualReview: 'മാനുവൽ പരിശോധന',
+    beneficiaryInsight: 'ഗുണഭോക്തൃ വിവരങ്ങൾ',
+    reports: 'റിപ്പോർട്ടുകൾ',
+    searchPlaceholder: 'സ്കോളർഷിപ്പ് തിരയുക...',
+    getStarted: 'ആരംഭിക്കുക',
+    exploreScholarships: 'സ്കോളർഷിപ്പുകൾ കാണുക',
+    studentLogin: 'വിദ്യാർത്ഥി ലോഗിൻ',
+    officerLogin: 'ഓഫീസർ ലോഗിൻ',
+    logout: 'ലോഗൗട്ട്',
+    tagline: 'ഒരു പ്ലാറ്റ്‌ഫോം. ഓരോ സ്കോളർഷിപ്പും. മികച്ച ആക്സസ്.',
+    demoNotice: 'ഡെമോ / സാമ്പിൾ അന്തരീക്ഷം',
+    potentiallyEligible: 'സാധ്യതയുള്ള യോഗ്യത',
+    underReview: 'പരിശോധനയിൽ',
+    verified: 'സ്ഥിരീകരിച്ചു',
+    sanctioned: 'അനുവദിച്ചു',
+    disbursed: 'വിതരണം ചെയ്തു',
+    welcomeBack: 'ശുഭദിനം',
+    profileCompletion: 'പ്രൊഫൈൽ പൂർത്തീകരണം',
+    viewApplication: 'അപേക്ഷ കാണുക',
+    checkEligibility: 'യോഗ്യത പരിശോധിക്കുക',
+    startApplication: 'അപേക്ഷ സമർപ്പിക്കുക'
+  }
+};
+
+const LanguageContext = createContext();
+
+export const LanguageProvider = ({ children }) => {
+  const [currentLang, setCurrentLang] = useState(() => {
+    return localStorage.getItem('trinex_lang') || 'en';
+  });
+
+  const changeLanguage = (langCode) => {
+    setCurrentLang(langCode);
+    localStorage.setItem('trinex_lang', langCode);
+  };
+
+  const t = (key) => {
+    const langDict = translations[currentLang] || translations.en;
+    return langDict[key] || translations.en[key] || key;
+  };
+
+  const languageNames = [
+    { code: 'en', label: 'English' },
+    { code: 'ta', label: 'தமிழ்' },
+    { code: 'hi', label: 'हिन्दी' },
+    { code: 'te', label: 'తెలుగు' },
+    { code: 'kn', label: 'ಕನ್ನಡ' },
+    { code: 'ml', label: 'മലയാളം' }
+  ];
+
+  return (
+    <LanguageContext.Provider value={{ currentLang, changeLanguage, t, languageNames }}>
+      {children}
+    </LanguageContext.Provider>
+  );
+};
+
+export const useLanguage = () => useContext(LanguageContext);
